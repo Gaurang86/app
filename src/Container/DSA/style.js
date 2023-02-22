@@ -20,6 +20,12 @@ const DsaStyle = styled.div`
     height: 2.5em;
     width: 6em;
     border: none;
+    margin-left: 0.5em;
+    text-align: center;
+  }
+  .form {
+    border: none;
+    height: 3em;
   }
 `
 

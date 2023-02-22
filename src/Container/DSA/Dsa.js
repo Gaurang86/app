@@ -3,12 +3,12 @@ import { DsaStyle } from './style'
 const Dsa = () => {
   const [todos, setTodos] = useState([])
   const [inputValue, setInputValue] = useState('')
-  const [editIndex, setEditIndex] = useState(-1)
+  const [editIndex, setEditIndex] = useState(undefined)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!inputValue) return
-    if (editIndex === -1) {
+    if (editIndex === undefined) {
       setTodos([...todos, { text: inputValue, color: '#ffffff' }])
     } else {
       const newtodos = [...todos]
@@ -18,23 +18,29 @@ const Dsa = () => {
     }
     setInputValue('')
   }
-  const handleDelete = (id) => {
+  const handleDelete = (index) => {
     const newtodos = [...todos]
-    newtodos.splice(id, 1)
+    newtodos.splice(index, 1)
     setTodos(newtodos)
+    if (editIndex === index) {
+      setEditIndex(-1)
+      setInputValue('')
+    } else if (editIndex > index) {
+      setEditIndex(editIndex - 1)
+    }
   }
-  const handleEdit = (id) => {
-    setEditIndex(id)
-    setInputValue(todos[id].text)
+  const handleEdit = (index) => {
+    setEditIndex(index)
+    setInputValue(todos[index].text)
   }
-  const handleColorChange = (id, color) => {
+  const handleColorChange = (index, color) => {
     const newtodos = [...todos]
-    newtodos[id].color = color
+    newtodos[index].color = color
     setTodos(newtodos)
   }
   return (
     <DsaStyle>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Add a new todo"
@@ -45,10 +51,10 @@ const Dsa = () => {
         <button type="submit">Add</button>
       </form>
       <ul>
-        {todos.map((todo, id) => (
-          <li key={id}>
+        {todos.map((todo, index) => (
+          <li key={index}>
             <div className="container">
-              <button className="btn" onClick={() => handleEdit(id)}>
+              <button className="btn" onClick={() => handleEdit(index)}>
                 Edit
               </button>
               <p
@@ -61,17 +67,17 @@ const Dsa = () => {
               >
                 {todo.text}
               </p>
-              <button className="btn" onClick={() => handleDelete(id)}>
+              <button className="btn" onClick={() => handleDelete(index)}>
                 Delete
               </button>
               <select
                 className="selector"
                 value={todo.color}
-                onChange={(e) => handleColorChange(id, e.target.value)}
+                onChange={(e) => handleColorChange(index, e.target.value)}
               >
                 <option value="#ffffff">White</option>
                 <option value="#0080ff">Blue</option>
-                <option value="#00ff00">Green</option>
+                <option value="#005500">Green</option>
                 <option value="#ff0000">Red</option>
               </select>
             </div>
