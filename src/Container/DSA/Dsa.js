@@ -7,14 +7,16 @@ const Dsa = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const trimmedValue = inputValue.trim()
+    if (!trimmedValue) return setInputValue('')
     if (!inputValue) return
     if (editIndex === undefined) {
-      setTodos([...todos, { text: inputValue, color: '#ffffff' }])
+      setTodos([...todos, { text: inputValue, color: '#9966ff' }])
     } else {
       const newtodos = [...todos]
       newtodos[editIndex].text = inputValue
       setTodos(newtodos)
-      setEditIndex(-1)
+      setEditIndex(undefined)
     }
     setInputValue('')
   }
@@ -23,7 +25,7 @@ const Dsa = () => {
     newtodos.splice(index, 1)
     setTodos(newtodos)
     if (editIndex === index) {
-      setEditIndex(-1)
+      setEditIndex(undefined)
       setInputValue('')
     } else if (editIndex > index) {
       setEditIndex(editIndex - 1)
@@ -40,48 +42,57 @@ const Dsa = () => {
   }
   return (
     <DsaStyle>
-      <form className="form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Add a new todo"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
+      <div className="container">
+        <h1>Todo App</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="minpt"
+            type="text"
+            placeholder="Add a new todo"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
 
-        <button type="submit">Add</button>
-      </form>
+          <button className="ibtn" type="submit">
+            Add
+          </button>
+        </form>
+      </div>
       <ul>
         {todos.map((todo, index) => (
           <li key={index}>
-            <div className="container">
-              <button className="btn" onClick={() => handleEdit(index)}>
-                Edit
-              </button>
-              <p
-                style={{
-                  backgroundColor: todo.color,
-                  width: '10em',
-                  textAlign: 'center',
-                  height: '2em',
-                }}
-              >
-                {todo.text}
-              </p>
-              <button className="btn" onClick={() => handleDelete(index)}>
-                Delete
-              </button>
-              <select
-                className="selector"
-                value={todo.color}
-                onChange={(e) => handleColorChange(index, e.target.value)}
-              >
-                <option value="#ffffff">White</option>
-                <option value="#0080ff">Blue</option>
-                <option value="#005500">Green</option>
-                <option value="#ff0000">Red</option>
-              </select>
+            <div
+              className="map-container"
+              style={{ backgroundColor: todo.color }}
+            >
+              <p>{todo.text}</p>
+              <div className="allbtn">
+                <button
+                  className="btn"
+                  style={{ backgroundColor: todo.color }}
+                  onClick={() => handleEdit(index)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn"
+                  style={{ backgroundColor: todo.color }}
+                  onClick={() => handleDelete(index)}
+                >
+                  Delete
+                </button>
+                <select
+                  className="selector"
+                  value={todo.color}
+                  onChange={(e) => handleColorChange(index, e.target.value)}
+                >
+                  <option value="#9966ff">Purple</option>
+                  <option value="#0080ff">Blue</option>
+                  <option value="#005500">Green</option>
+                  <option value="#ff0000">Red</option>
+                </select>
+              </div>
             </div>
-            <hr />
           </li>
         ))}
       </ul>
