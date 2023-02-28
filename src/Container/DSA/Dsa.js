@@ -4,7 +4,7 @@ const Dsa = () => {
   const [todos, setTodos] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [editIndex, setEditIndex] = useState(undefined)
-
+  console.log(typeof editIndex)
   const handleSubmit = (e) => {
     e.preventDefault()
     const trimmedValue = inputValue.trim()
@@ -24,6 +24,7 @@ const Dsa = () => {
     const newtodos = [...todos]
     newtodos.splice(index, 1)
     setTodos(newtodos)
+    console.log('editIndex', editIndex, index)
     if (editIndex === index) {
       setEditIndex(undefined)
       setInputValue('')
@@ -52,14 +53,15 @@ const Dsa = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-
           <button className="ibtn" type="submit">
             Add
           </button>
         </form>
+        <span>Total Task : {todos?.length}</span>
+        <hr />
       </div>
       <ul>
-        {todos.map((todo, index) => (
+        {todos?.map((todo, index) => (
           <li key={index}>
             <div
               className="map-container"
@@ -89,7 +91,7 @@ const Dsa = () => {
                   <option value="#9966ff">Purple</option>
                   <option value="#0080ff">Blue</option>
                   <option value="#005500">Green</option>
-                  <option value="#ff0000">Red</option>
+                  <option value="#880808">Red</option>
                 </select>
               </div>
             </div>

@@ -4,6 +4,7 @@ import Dashboard from '../Container/Dashboard'
 import Dsa from '../Container/DSA/Dsa'
 import Login from '../Container/Login'
 import Registration from '../Container/Registration'
+import Test from '../Container/Test'
 import UserInfo from '../Container/UserInfo'
 const routes = () => {
   return (
@@ -15,6 +16,7 @@ const routes = () => {
           <Route exact path="/userinfo" element={<UserInfo />} />
           <Route exact path="/registration" element={<Registration />} />
           <Route exact path="/dsa" element={<Dsa />} />
+          <Route exact path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </div>

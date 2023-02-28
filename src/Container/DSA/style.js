@@ -94,6 +94,8 @@ const DsaStyle = styled.div`
     .map-container {
       border-radius: 0;
       display: inline;
+      width: 90%;
+      border-radius: 5px;
     }
     .allbtn {
       float: right;
@@ -109,8 +111,8 @@ const DsaStyle = styled.div`
       height: 3.4em;
     }
     p {
-      width: 20em;
-      overflow: hidden;
+      width: 17em;
+      word-wrap: break-all;
     }
   }
 `
